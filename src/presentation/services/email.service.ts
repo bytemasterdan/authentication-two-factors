@@ -32,7 +32,7 @@ export class EmailService{
         try {
             // de nada me sirve desestructurar si ya me pide un Objeto Literal
             const sendInformation = await this.transporter.sendMail(options);
-            console.log(sendInformation);
+            console.log("Email Send");
             return true;
         } catch (error) {
             return false

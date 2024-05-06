@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
 import { AuthService } from "../services/auth.service";
+import { EmailService } from "../services/email.service";
 
  export class AuthController {
     //Faltaria la inyeccion de dependencias
   constructor(
-    public readonly authService: AuthService
+    public readonly authService: AuthService,
   ) {}
 
   private handleError(error : unknown, res:Response){
@@ -38,7 +39,11 @@ import { AuthService } from "../services/auth.service";
   }
 
   public validateEmail = (req:Request, res:Response) => {
-      res.json('validateEmail')
+      const { token } = req.params;
+
+      this.authService.validateEmail(token)
+      .then(() => res.json('Email Validated'))
+      .catch(error => this.handleError(error,res));
   }
 
  }
