@@ -18,7 +18,8 @@ export class EmailService{
     constructor(
         public readonly mailerService:string,
         public readonly mailerEmail:string,
-        public readonly mailerSecretKey:string
+        public readonly mailerSecretKey:string,
+        private readonly postToProvider:boolean
     ){
         this.transporter = nodemailer.createTransport({
             service : mailerService,
@@ -30,6 +31,7 @@ export class EmailService{
     }
     async sendEmail(options:SendOptions):Promise<boolean>{
         try {
+            if (!this.postToProvider) return true;
             // de nada me sirve desestructurar si ya me pide un Objeto Literal
             const sendInformation = await this.transporter.sendMail(options);
             console.log("Email Send");

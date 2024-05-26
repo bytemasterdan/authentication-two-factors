@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { CustomError, LoginUserDto, RegisterUserDto } from "../../domain";
 import { AuthService } from "../services/auth.service";
-import { EmailService } from "../services/email.service";
 
  export class AuthController {
     //Faltaria la inyeccion de dependencias
